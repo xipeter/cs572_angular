@@ -1,5 +1,5 @@
 
-import { Component,Input} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from './product';
 
 @Component({
@@ -14,10 +14,19 @@ import { Product } from './product';
           <input    [(ngModel)] = 'product.name'    />
            
           </div>
+          <button (click)='delete()'>delete</button>
     </div>
     `
 })
 export class ProductDetail{
     @Input()
-    product:Product
+    product:Product;
+    @Output()
+    requestDelete = new EventEmitter<Product>();
+
+    delete(){
+        this.requestDelete.emit(this.product);
+    }
+
+    
 }

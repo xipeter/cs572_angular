@@ -1,3 +1,4 @@
+enum kind{new,used,discontinued};
 export class Product{
     id:number; 
     name:string;

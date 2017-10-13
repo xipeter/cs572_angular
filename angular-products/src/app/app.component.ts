@@ -17,7 +17,7 @@ import { Product } from './product';
     <span class='badge'>{{product.id}}</span> {{product.name}}
    </li>
   </ul>
-  <product-detail [product]='selectedProduct'></product-detail>
+  <product-detail [product]='selectedProduct' (requestDelete)='deleteProduct($event)' ></product-detail>
   `,
   styles: [`
   .selected {
@@ -85,6 +85,9 @@ export class AppComponent implements OnInit {
     this.productService.getProductsSlowly().then(data=>{
       this.productlists = data;
     });
+  }
+  deleteProduct(event:any){
+    this.productlists.pop();
   }
   
    

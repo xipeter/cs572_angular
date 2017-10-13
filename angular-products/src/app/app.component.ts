@@ -1,32 +1,14 @@
+import { ProductService } from './product-data.service';
 
-import { Component } from '@angular/core';
-enum kind{new,used,discontinued};
-export class Product{
-  id:number;
-  
-  name:string;
-  description:string;
-  price:number;
-  condition: kind ;
-  category:string;
+import { Component,OnInit } from '@angular/core';
+import { Product } from './product';
 
-}
+
 @Component({
   selector: 'my-app',
   template: `
 
   <h2>My Products</h2>
-
-
-
-  <h2>{{selectedProduct.name}} details </h2>
-<div *ngIf='selectedProduct'>
-      <div><label>id: </label>{{selectedProduct.id}}</div>
-      <div>
-      <label>name:</label>
-      <input [(ngModel)] = 'selectedProduct.name' />
-      </div>
-</div>
 
   <ul class='products'>
    <li *ngFor='let product of productlists' 
@@ -35,7 +17,7 @@ export class Product{
     <span class='badge'>{{product.id}}</span> {{product.name}}
    </li>
   </ul>
-
+  <product-detail [product]='selectedProduct'></product-detail>
   `,
   styles: [`
   .selected {
@@ -85,73 +67,27 @@ export class Product{
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
-`]
+`],
+providers:[ProductService]
 })
-export class AppComponent  { 
-  // title = 'My Products';
-  // name = 'Computer'; 
-  // product:Product = {
-  //   id:1,
-  //   name:'computer',
-  //   description:'my mac',
-  //   price:5000.99,
-  //   condition: kind.new,
-  //   category:'laptop'
-  // };
+export class AppComponent implements OnInit { 
+  ngOnInit(): void {
+    this.getHeros();
+  }
 
+  constructor(private productService:ProductService){}
   selectedProduct:Product;
   OnSelect(product:Product):void{
     this.selectedProduct = product;
   }
+  productlists:Product[];
+  getHeros():void{
+    this.productService.getProductsSlowly().then(data=>{
+      this.productlists = data;
+    });
+  }
+  
+   
+  
 
-  objs:Product[] = [
-    {
-      id:1,name:'computer',
-      description:'my mac',
-      price:5000.99,
-      condition: kind.new,
-      category:'laptop'
-    },
-    {
-      id:2,
-      name:'iphone',
-      description:'my iphone',
-      price:3000,
-      condition: kind.new,
-      category:'cell phone'
-    },
-    {
-      id:3,
-      name:'wallet',
-      description:'my bag',
-      price:1000,
-      condition: kind.new,
-      category:'bag'
-    },
-    {
-      id:4,
-      name:'pen',
-      description:'my pen',
-      price:200,
-      condition: kind.new,
-      category:'pen'
-    },
-    {
-      id:5,
-      name:'tv',
-      description:'my tv',
-      price:3200,
-      condition: kind.new,
-      category:'tv'
-    },
-    {
-      id:6,
-      name:'headphone',
-      description:'my headphone',
-      price:400,
-      condition: kind.new,
-      category:'headphone'
-    }
-  ];
-  productlists = this.objs;
 }

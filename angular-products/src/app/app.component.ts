@@ -23,7 +23,12 @@ import { Cart } from './cart';
    </li>
   </ul>
   <product-detail [product]='selectedProduct' (requestDelete)='deleteProduct($event)' (addtoCart) = 'loadCart($event)' ></product-detail>
-  <cart-detail [newcart] = 'sendcart'></cart-detail>
+  <div *ngIf='isShow'>
+  <cart-detail [newcart] = 'cart'></cart-detail>
+  </div>
+<h2>Add Product</h2>
+
+  <add-product></add-product>
   `,
   styleUrls:['mystyle.css'],
 providers:[ProductService]
@@ -43,6 +48,7 @@ export class AppComponent implements OnInit {
   productlists:Product[];
   cart:Cart;
   sendcart:Cart;
+  isShow:boolean = false;
   getHeros():void{
     this.productService.getProductsSlowly().then(data=>{
       this.productlists = data;
@@ -56,7 +62,7 @@ export class AppComponent implements OnInit {
     this.cart = obj;
   }
   showCart(){
-    this.sendcart = this.cart;
+    this.isShow = !this.isShow;
   }
   
    

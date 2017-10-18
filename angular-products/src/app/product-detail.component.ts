@@ -1,5 +1,5 @@
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injectable } from '@angular/core';
 import { Product } from './product';
 import { Cart } from './cart';
 
@@ -12,14 +12,16 @@ import { Cart } from './cart';
           <div><label>id: </label>{{product.id}}</div>
           <div>
           <label>name:</label>
-          <input    [(ngModel)] = 'product.name'    />
-           
+          <input    [(ngModel)] = 'product.name'    /><br />
+          <label>Description:{{product.description}}</label>
           </div>
           <button (click)='delete()'>delete</button>
           <button (click)='add()'>add to shopping</button>
     </div>
-    `
+    `,
+    providers:[Cart]
 })
+@Injectable()
 export class ProductDetail{
     @Input()
     product:Product;
@@ -28,14 +30,17 @@ export class ProductDetail{
     @Output()
     addtoCart = new EventEmitter<Cart>();
     
-    cart = new Cart([],0);
+    // cart = new Cart([],)
+    constructor(private cart:Cart){
+        
+    }
+
 
 
     delete(){
         this.requestDelete.emit(this.product);
     }
     add(){
-        // console.log(this.product);
         this.cart.addItem(this.product);
         this.addtoCart.emit(this.cart);
 

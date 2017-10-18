@@ -1,0 +1,33 @@
+
+<form [formGroup] = 'productForm' >
+    <div class='form-group'>
+
+            <label for='product_Name'>Product Name</label>
+            <input required formControlName = 'productName' id='productName' type="text" >
+            <br/>
+            <label for='product_name'>Desc</label> <br />
+            <textarea formControlName='productDesc' cols='20' rows="5"  ></textarea>
+
+
+
+    </div>
+
+
+
+    
+    <!-- <div *ngIf='productName.touched && !productName.valid' class="alert alert-danger">
+            productName is required.
+            <div *ngIf='productName.errors.required' class="alert alert-danger">
+                    please input the productName.
+            </div>
+    </div> -->
+    <!-- <div *ngIf='productName.invalid' class="alert alert-danger">
+            productName is required.
+            <div *ngIf='productName.errors.unique' class="alert alert-danger">
+                    you can't input P123.
+            </div>
+
+    </div> -->
+
+    <button class="btn btn-primary" (click) = submit(myform) >Submit</button>
+</form>

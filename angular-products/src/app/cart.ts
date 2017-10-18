@@ -1,9 +1,8 @@
 import { Product } from './product';
 
 export class Cart{
-    constructor(private products:Product[],private totalPrice:number){
-       
-    }
+    
+    products:Product[] = [];
     addItem(product:Product){
         this.products.push(product);
     }

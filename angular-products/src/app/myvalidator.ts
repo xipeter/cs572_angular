@@ -1,12 +1,18 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
+import { AbstractControl, ValidationErrors ,AsyncValidatorFn} from "@angular/forms";
 
 
 
 export class ValidateProduct{
-    static validate(control:AbstractControl) :ValidationErrors |null{
+    static unique(control:AbstractControl) :Promise<ValidationErrors |null>{
+
         if((control.value as string)=='P123'){
-            return {uniqueid:true};
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{resolve( {uniqueid:true})},2000);
+            });
+           
         }
-        return null;
+        return new Promise((resolve)=>{
+            resolve(null);
+        });
     }
 }

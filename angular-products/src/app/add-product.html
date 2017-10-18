@@ -21,13 +21,15 @@
                     please input the productName.
             </div>
     </div> -->
-    <!-- <div *ngIf='productName.invalid' class="alert alert-danger">
-            productName is required.
-            <div *ngIf='productName.errors.unique' class="alert alert-danger">
-                    you can't input P123.
-            </div>
 
-    </div> -->
+
+    <div *ngIf="
+    productForm.get('productName').touched&&
+    productForm.get('productName').errors&&
+    productForm.get('productName').errors.uniqueid" class="alert alert-danger">
+            you can't input P123.
+    </div>
+
 
     <button class="btn btn-primary" (click) = submit(myform) >Submit</button>
 </form>

@@ -12,7 +12,7 @@ import { ValidateProduct } from "./myvalidator";
 })
 export class AddProduct{
     productForm = new FormGroup({
-        productName:new FormControl('',ValidateProduct.validate),
+        productName:new FormControl('',null,ValidateProduct.unique),
         productDesc:new FormControl()
     });
     temp:Product;

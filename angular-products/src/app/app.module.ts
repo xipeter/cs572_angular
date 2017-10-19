@@ -7,14 +7,34 @@ import { CartDetail } from './cartDetail.component';
 import { CalculPrice } from './product-pipe';
 import { AddProduct } from './addProduct.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductsComponent } from './products.component';
+import { ProductService } from './product-data.service';
+import { RouterModule }  from '@angular/router'
+import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
-  imports:      [ BrowserModule ,FormsModule,ReactiveFormsModule],
+  imports:      [ BrowserModule ,FormsModule,ReactiveFormsModule,
 
+RouterModule.forRoot([
+    {
+      path:'products',
+      component:ProductsComponent
+    },{
+      path:'dashboard',
+      component:DashboardComponent
+    },{
+      path:'',
+      redirectTo:'/dashboard',
+      pathMatch:'full'
+    }
 
+  ])
+  ],
 
-
-declarations: [ AppComponent,ProductDetail,CartDetail,CalculPrice,AddProduct,],
-  bootstrap:    [ AppComponent ]
+declarations: [ AppComponent,ProductDetail,CartDetail,CalculPrice,AddProduct,ProductsComponent,DashboardComponent],
+  bootstrap:    [ AppComponent ],
+  providers:[ProductService]
 })
+
+
 export class AppModule { }

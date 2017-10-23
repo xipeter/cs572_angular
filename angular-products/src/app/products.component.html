@@ -1,0 +1,25 @@
+<h2>My Products</h2>
+<div *ngIf='cart' class="alert alert-danger">
+  <h4>Shopping Cart {{cart.Count()}} </h4>
+  <a href="#" class="btn btn-primary" (click)='showCart()' >View Cart</a>
+</div>
+<ul class='products'>
+ <li *ngFor='let product of productlists' 
+ [class.selected]='product===selectedProduct'
+ (click)='OnSelect(product)' >
+  <span class='badge'>{{product.id}}</span> {{product.name}}
+ </li>
+</ul>
+<!-- <product-detail [product]='selectedProduct' (requestDelete)='deleteProduct($event)' (addtoCart) = 'loadCart($event)' ></product-detail> -->
+<div *ngIf="selectedProduct">
+<h2>
+  {{selectedProduct.name | uppercase}} is my product
+</h2>
+<button (click)="gotoDetail()">View Details</button>
+</div>
+<div *ngIf='isShow'>
+<cart-detail [newcart] = 'cart'></cart-detail>
+</div>
+<h2>Add Product</h2>
+
+<add-product></add-product>

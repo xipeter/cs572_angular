@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
     constructor(private productService:ProductService){}
     products:Product[]=[];
     ngOnInit(): void {
-        this.productService.getProductsSlowly().then(data=>{
+        this.productService.getProductsV2().then(data=>{
             this.products = data.slice(1,3);
         });
     }

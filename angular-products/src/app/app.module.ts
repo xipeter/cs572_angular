@@ -11,26 +11,17 @@ import { ProductsComponent } from './products.component';
 import { ProductService } from './product-data.service';
 import { RouterModule }  from '@angular/router'
 import { DashboardComponent } from './dashboard.component';
+import { AppRouting } from './app-routing.module';
+import { HttpModule } from '@angular/http';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
+
 
 @NgModule({
-  imports:      [ BrowserModule ,FormsModule,ReactiveFormsModule,
-
-RouterModule.forRoot([
-    {
-      path:'products',
-      component:ProductsComponent
-    },{
-      path:'dashboard',
-      component:DashboardComponent
-    },{
-      path:'',
-      redirectTo:'/dashboard',
-      pathMatch:'full'
-    }
-
-  ])
-  ],
-
+  imports:      [ BrowserModule ,FormsModule,ReactiveFormsModule,AppRouting, HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)],
 declarations: [ AppComponent,ProductDetail,CartDetail,CalculPrice,AddProduct,ProductsComponent,DashboardComponent],
   bootstrap:    [ AppComponent ],
   providers:[ProductService]

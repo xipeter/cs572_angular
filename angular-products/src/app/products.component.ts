@@ -3,33 +3,13 @@ import { ProductService } from './product-data.service';
 import { Component,OnInit } from '@angular/core';
 import { Product } from './product';
 import { Cart } from './cart';
+import { Router } from '@angular/router';
 
 
 
 @Component({
   selector: 'my-products',
-  template: `
-
-  <h2>My Products</h2>
-  <div *ngIf='cart' class="alert alert-danger">
-    <h4>Shopping Cart {{cart.Count()}} </h4>
-    <a href="#" class="btn btn-primary" (click)='showCart()' >View Cart</a>
-  </div>
-  <ul class='products'>
-   <li *ngFor='let product of productlists' 
-   [class.selected]='product===selectedProduct'
-   (click)='OnSelect(product)' >
-    <span class='badge'>{{product.id}}</span> {{product.name}}
-   </li>
-  </ul>
-  <product-detail [product]='selectedProduct' (requestDelete)='deleteProduct($event)' (addtoCart) = 'loadCart($event)' ></product-detail>
-  <div *ngIf='isShow'>
-  <cart-detail [newcart] = 'cart'></cart-detail>
-  </div>
-<h2>Add Product</h2>
-
-  <add-product></add-product>
-  `,
+  templateUrl:'./products.component.html',
   styleUrls:['mystyle.css'],
 })
 export class ProductsComponent implements OnInit { 
@@ -39,7 +19,7 @@ export class ProductsComponent implements OnInit {
 
 
 
-  constructor(private productService:ProductService){}
+  constructor(private productService:ProductService,private router:Router){}
   selectedProduct:Product;
   OnSelect(product:Product):void{
     this.selectedProduct = product;
@@ -49,8 +29,12 @@ export class ProductsComponent implements OnInit {
   sendcart:Cart;
   isShow:boolean = false;
   getHeros():void{
-    this.productService.getProductsSlowly().then(data=>{
+    // this.productService.getProductsSlowly().then(data=>{
+    //   this.productlists = data;
+    // });
+    this.productService.getProductsV2().then(data=>{
       this.productlists = data;
+      console.log(data);
     });
   }
   deleteProduct(event:any){
@@ -62,6 +46,9 @@ export class ProductsComponent implements OnInit {
   }
   showCart(){
     this.isShow = !this.isShow;
+  }
+  gotoDetail():void{
+    this.router.navigate(['/detail',this.selectedProduct.id])
   }
   
    

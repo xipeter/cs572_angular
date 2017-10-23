@@ -1,0 +1,13 @@
+<div *ngIf='product'>
+        <h2>{{product.name}} details </h2>
+          <div><label>id: </label>{{product.id}}</div>
+          <div>
+          <label>name:</label>
+          <input    [(ngModel)] = 'product.name'    /><br />
+          <label>Description:{{product.description}}</label>
+          </div>
+          <button (click)='delete()'>delete</button>
+          <button (click)='add()'>add to shopping</button>
+          <button (click)="goBack()">Back</button>
+          <button (click)="save()">Save</button>
+    </div>
